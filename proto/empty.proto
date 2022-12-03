@@ -1,0 +1,5 @@
+syntax = "proto3";
+package tuns_go_flight;
+option go_package = "./;protobuf";
+
+message Empty {}

@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package tuns_go_flight;
+option go_package = "./;protobuf";
+
+import "google/protobuf/timestamp.proto";
+
+service RPCFlight {
+    rpc FindById(FlightParamId) returns (Flight);
+    rpc CreateFlight(Flight) returns (Flight);
+    rpc UpdateFlight(Flight) returns (Flight);
+    rpc SearchFlight(SearchFlightRequest) returns (SearchFlightResponse);
+}
+
+message FlightParamId {
+    string id = 1;
+}
+
+message Flight {
+    string id = 1;
+    string name = 2;
+    string from = 3;
+    string to = 4;
+    google.protobuf.Timestamp depart_date = 5;
+    string status = 6;
+    int32 available_slot = 7;
+    google.protobuf.Timestamp created_at = 8;
+    google.protobuf.Timestamp updated_at = 9;
+}
+
+message SearchFlightRequest {
+    string id = 1;
+    string name = 2;
+    string from = 3;
+    string to = 4;
+    google.protobuf.Timestamp from_date = 5;
+    google.protobuf.Timestamp to_date = 6;
+}
+
+message SearchFlightResponse {
+    repeated Flight flight = 1;
+}

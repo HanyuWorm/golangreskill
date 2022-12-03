@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+package tuns_go_flight;
+option go_package = "./;protobuf";
+
+import "google/protobuf/timestamp.proto";
+
+service RPCBooking {
+    rpc FindById(BookingParamId) returns (Booking);
+    rpc CreateBooking(Booking) returns (Booking);
+    rpc UpdateBooking(Booking) returns (Booking);
+    rpc SearchBooking(SearchBookingRequest) returns (SearchBookingResponse);
+}
+
+message BookingParamId {
+    string id = 1;
+}
+
+message CustomerDTO {
+    string id = 1;
+    int32 role = 2;
+    string name = 3;
+    string email = 4;
+    string phone_number = 5;
+    string date_of_bith = 6;
+    string identity_card = 7;
+    string address = 8;
+    string membership_card = 9;
+    string password = 10;
+    int32 status = 11;
+    google.protobuf.Timestamp created_at = 12;
+    google.protobuf.Timestamp updated_at = 13;
+}
+
+message FlightDTO {
+    string id = 1;
+    string name = 2;
+    string from = 3;
+    string to = 4;
+    google.protobuf.Timestamp depart_date = 5;
+    string status = 6;
+    int32 available_slot = 7;
+    google.protobuf.Timestamp created_at = 8;
+    google.protobuf.Timestamp updated_at = 9;
+}
+
+
+message Booking {
+    string id = 1;
+    string customer_id = 2;
+    string flight_id = 3;
+    string code = 4;
+    int32 booked_slot =5;
+    string status = 6;
+    google.protobuf.Timestamp booked_date = 7;
+    google.protobuf.Timestamp created_at = 8;
+    google.protobuf.Timestamp updated_at = 9;
+    CustomerDTO customer = 10;
+    FlightDTO flight = 11;
+}
+
+message SearchBookingRequest {
+    string id = 1;
+    string customer_id = 2;
+    string flight_id = 3;
+    string code = 4;
+    string status = 5;
+    google.protobuf.Timestamp from_date = 6;
+    google.protobuf.Timestamp to_date = 7;
+}
+
+message SearchBookingResponse {
+    repeated Booking booking = 1;
+}
